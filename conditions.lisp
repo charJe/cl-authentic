@@ -22,13 +22,13 @@
 ;;
 ;; Commentary:
 ;; 
-(in-package #:cl-password-store)
+(in-package #:authentic)
 
-(define-condition cl-password-store-condition ()
+(define-condition authentic-condition ()
   ()
-  (:documentation "Superclass of all conditions raised by cl-password-store."))
+  (:documentation "Superclass of all conditions raised by authentic."))
 
-(define-condition user-exists (cl-password-store-condition)
+(define-condition user-exists (authentic-condition)
   ((user-token :accessor get-user-token :initarg :user-token
 	       :documentation "The user-token that triggered the condition."))
   (:report
@@ -37,7 +37,7 @@
   (:documentation
    "Condition raised if an attempt was made to create a user that already exists."))
 
-(define-condition user-unknown (cl-password-store-condition)
+(define-condition user-unknown (authentic-condition)
   ((user-token :accessor get-user-token :initarg :user-token
 	       :documentation "The user-token that triggered the condition."))
   (:report
@@ -46,7 +46,7 @@
   (:documentation 
    "Condition raised if an operation was attempted with an unknown user-token."))
 
-(define-condition password-token-expired (cl-password-store-condition)
+(define-condition password-token-expired (authentic-condition)
   ((user-token :accessor get-user-token :initarg :user-token
 	       :documentation "The user-token that triggered the condition.")
    (expiry     :accessor get-expiry     :initarg :expiry
@@ -59,7 +59,7 @@
   (:documentation
    "Condition raised if a password change was attempted with a token whose validity duration has expired."))
 
-(define-condition password-token-invalid (cl-password-store-condition)
+(define-condition password-token-invalid (authentic-condition)
   ((user-token :accessor get-user-token :initarg :user-token
 	       :documentation "The user-token that triggered the condition.")
    (reset-token :accessor get-reset-token     :initarg :reset-token
@@ -72,7 +72,7 @@
   (:documentation
    "Condition raised if a password change was attempted with a bad token"))
 
-(define-condition confirmation-token-expired (cl-password-store-condition)
+(define-condition confirmation-token-expired (authentic-condition)
   ((user-token :accessor get-user-token :initarg :user-token
 	       :documentation "The user-token that triggered the condition.")
    (expiry     :accessor get-expiry     :initarg :expiry
@@ -85,7 +85,7 @@
   (:documentation 
    "Condition raised if a user confirmation was attempted with a token whose validity duration has expired."))
 
-(define-condition confirmation-token-invalid (cl-password-store-condition)
+(define-condition confirmation-token-invalid (authentic-condition)
   ((user-token :accessor get-user-token :initarg :user-token
 	       :documentation "The user-token that triggered the condition.")
    (confirmation-token :accessor get-confirmation-token     :initarg :confirmation-token

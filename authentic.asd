@@ -1,6 +1,6 @@
 ;;; -*- Mode: Lisp; Syntax: ANSI-Common-Lisp; Base: 10; -*-
 ;;;
-;;; cl-password-store.asd --- Password management for Common Lisp (web) applications.
+;;; authentic.asd --- Password management for Common Lisp (web) applications.
 
 ;; Copyright (C) 2013 Utz-Uwe Haus <lisp@uuhaus.de>
 ;;
@@ -22,12 +22,12 @@
 ;;
 ;; Commentary:
 ;; 
-(defpackage cl-password-store-system
+(defpackage authentic-system
   (:use #:cl #:asdf))
 
-(in-package :cl-password-store-system)
+(in-package :authentic-system)
 
-(defsystem #:cl-password-store
+(defsystem #:authentic
   :serial t
   :description "Password management for Common Lisp (web) applications."
   :author "Utz-Uwe Haus <lisp@uuhaus.de>"
@@ -36,16 +36,16 @@
   :depends-on ("clsql" "ironclad")
   :components ((:file "package")
 	       (:file "conditions")
-               (:file "cl-password-store"))
-  :in-order-to ((test-op (load-op cl-password-store-test)))
+               (:file "authentic"))
+  :in-order-to ((test-op (load-op authentic-test)))
   :perform (test-op :after (op c)
-                    (funcall (intern "RUN!" :cl-password-store-tests)
-                             (intern "TESTS" :cl-password-store-tests))))
+                    (funcall (intern "RUN!" :authentic-tests)
+                             (intern "TESTS" :authentic-tests))))
 (defmethod operation-done-p
-    ((op test-op) (c (eql (find-system :cl-password-store))))
+    ((op test-op) (c (eql (find-system :authentic))))
   (values nil))
 
-(defsystem cl-password-store-test
-  :depends-on ("cl-password-store" "fiveam")
+(defsystem authentic-test
+  :depends-on ("authentic" "fiveam")
   :components ((:file "tests")))
 

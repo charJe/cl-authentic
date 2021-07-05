@@ -34,7 +34,7 @@
 (in-package :cl-user)
 
 (ql:quickload "external-program")
-(asdf:operate 'asdf:load-op "cl-password-store")
+(asdf:operate 'asdf:load-op "authentic")
 
 (defparameter *markdown-processor* "/usr/bin/markdown2"
   "Markdown binary to call.")
@@ -70,4 +70,4 @@ otherwise the identity."
 		      (lml2:lml-princ documentation)))))
       (call-next-method)))
 
-(tinaa:document-system 'package 'cl-password-store #p"gh-pages/")
+(tinaa:document-system 'package 'authentic #p"gh-pages/")

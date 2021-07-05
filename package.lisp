@@ -23,7 +23,7 @@
 ;; Commentary:
 ;; 
 
-(defpackage #:cl-password-store
+(defpackage #:authentic
   (:use #:cl)
   ;; classes:
   (:export #:user-token-mixin
@@ -64,7 +64,7 @@
   (:documentation
    "Password management for Common Lisp (web) applications.
 
-`cl-password-store` provides a light-weight and extendible solution to
+`authentic` provides a light-weight and extendible solution to
 user/password management:
 
 * safe password storage:

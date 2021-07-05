@@ -1,7 +1,7 @@
-`cl-password-store` -- password management for Common Lisp (web) applications
+`authentic` -- password management for Common Lisp (web) applications
 =============================================================================
 
-`cl-password-store` provides a light-weight and extendible solution to
+`authentic` provides a light-weight and extendible solution to
 user/password management:
 
 * safe password storage:
@@ -21,7 +21,7 @@ Users can be identified by strings or by subclassing
 `user-token-mixin`.
 
 For documentation check out the
-[API documentation](http://u-u-h.github.io/cl-password-store/cl-password-store-package/index.html), or look at the
+[API documentation](http://u-u-h.github.io/password-store/password-store-package/index.html), or look at the
 [examples](examples.lisp). There is also a
 [5am](http://common-lisp.net/project/fiveam/) test suite in the file [tests.lisp](tests.lisp).
 

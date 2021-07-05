@@ -22,16 +22,16 @@
 ;;
 ;; Commentary:
 ;; 
-(defpackage cl-password-store-tests
-  (:use #:cl #:cl-password-store #:fiveam)
+(defpackage authentic-tests
+  (:use #:cl #:authentic #:fiveam)
   (:shadow #:run))
 
-(in-package #:cl-password-store-tests)
+(in-package #:authentic-tests)
 
 (defun random-username ()
   (format nil "~A" (random 1000000000000000)))
 
-(defparameter *db-spec* '(("cl-password-store-testdb.sqlite3")
+(defparameter *db-spec* '(("authentic-testdb.sqlite3")
 			  :database-type :sqlite3 :if-exists :new))
 (def-suite tests)
 
@@ -68,7 +68,7 @@
   (with-password-database ((open-password-database :spec *db-spec*))
     (with-password-store ((open-password-store))
       (signals user-unknown
-	(cl-password-store:authenticate-user (random-username) "foo")))))
+	(password-store:authenticate-user (random-username) "foo")))))
 
 (test register-new-user-1
   (with-password-database ((open-password-database :spec *db-spec*))
