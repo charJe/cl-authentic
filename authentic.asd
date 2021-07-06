@@ -22,12 +22,9 @@
 ;;
 ;; Commentary:
 ;; 
-(defpackage authentic-system
-  (:use #:cl #:asdf))
+(in-package :asdf-user)
 
-(in-package :authentic-system)
-
-(defsystem #:authentic
+(defsystem authentic
   :serial t
   :description "Password management for Common Lisp (web) applications."
   :author "Utz-Uwe Haus <lisp@uuhaus.de>"
