@@ -28,8 +28,11 @@
 
 (defvar *default-password-database* clsql:*default-database*
   "The default password database.")
-(defvar *default-password-hash* :sha256
-  "The default password hash used.")
+(defvar *default-password-hash* :pbkdf2
+  "The default password hash used.
+See https://github.com/sharplispers/ironclad#key-derivation-functions.")
+(defvar *default-hash-arguments* '(310000 64)
+  "Arguments to be applied with `*default-password-hash*' by `ironclad:derive-key'.")
 (defvar *default-password-store* nil
   "The default password store to use.")
 (defvar *default-password-store-pepper* "42"
@@ -177,11 +180,13 @@ Add user identified by TOKEN to STORE, with PASSWORD set, and possibly lock the 
     NIL)
   (:method ((store password-store) (password string) (salt string))
     (ironclad:byte-array-to-hex-string
-     (ironclad:digest-sequence
-      (get-hash store)
-      (ironclad:ascii-string-to-byte-array
-       (concatenate 'string (get-pepper store)
-            password salt))))))
+     (apply 'ironclad:derive-key
+            (ironclad:make-kdf (get-hash store) :digest :sha256)
+            (ironclad:ascii-string-to-byte-array
+             (concatenate 'string (get-pepper store)
+                          password))
+            (ironclad:ascii-string-to-byte-array salt)
+            *default-hash-arguments*))))
 
 (defun password-hash-equal (p1 p2)
   "Compare P1 and P2 for equality."
