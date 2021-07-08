@@ -68,7 +68,7 @@
   (with-password-database ((open-password-database :spec *db-spec*))
     (with-password-store ((open-password-store))
       (signals user-unknown
-	(password-store:authenticate-user (random-username) "foo")))))
+	(authentic:authenticate-user (random-username) "foo")))))
 
 (test register-new-user-1
   (with-password-database ((open-password-database :spec *db-spec*))
