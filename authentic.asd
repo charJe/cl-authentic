@@ -29,7 +29,7 @@
   :description "Password management for Common Lisp (web) applications."
   :author "Utz-Uwe Haus <lisp@uuhaus.de>"
   :license "LLGPL"
-  :version "0.1.0"
+  :version "0.1.1"
   :depends-on ("clsql" "ironclad")
   :components ((:file "package")
 	       (:file "conditions")

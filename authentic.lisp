@@ -28,7 +28,7 @@
 
 (defvar *default-password-database* clsql:*default-database*
   "The default password database.")
-(defvar *default-password-hash* :pbkdf2
+(defvar *default-password-hash* nil
   "The default password hash used.
 See https://github.com/sharplispers/ironclad#key-derivation-functions.")
 (defvar *default-hash-arguments* '(310000 64)
@@ -179,6 +179,15 @@ Add user identified by TOKEN to STORE, with PASSWORD set, and possibly lock the 
     (declare (ignore salt))
     NIL)
   (:method ((store password-store) (password string) (salt string))
+    (restart-case
+        (unless (get-hash store)
+          (error "You must set a password hashing algorithm. You can set one by
+setting AUTHENTIC:*DEFAULT-PASSWORD-HASH*. :PBKDF2 is a sensible default."))
+      (use-value (hash-algorithm)
+        :report "Supply a hashing algorithm from Ironclad."
+        :interactive (lambda () (multiple-value-list (eval (read))))
+        (setf (get-hash store) hash-algorithm
+              *default-password-hash* hash-algorithm)))
     (ironclad:byte-array-to-hex-string
      (apply 'ironclad:derive-key
             (ironclad:make-kdf (get-hash store) :digest :sha256)
